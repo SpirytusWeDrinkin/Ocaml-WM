@@ -65,7 +65,7 @@
       );
 
       checks = eachSystem (pkgs: {
-        pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+        pre-commit-check = pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
           src = ./.;
           hooks = {
             nixfmt-rfc-style.enable = true;
