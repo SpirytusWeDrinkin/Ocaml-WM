@@ -3,12 +3,14 @@
   inputs = {
     nixpkgs.url = "github:nix-ocaml/nix-overlays";
     # systems.url = "github:nix-systems/default";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs =
     {
       nixpkgs,
       self,
+      pre-commit-hooks,
       ...
     }:
     let
@@ -32,8 +34,8 @@
       packages = eachSystem (
         pkgs: with pkgs; {
           default = ocamlPackages.buildDunePackage {
-            pname = throw "Ocaml-Wm";
-            version = throw "0.1";
+            pname = "Ocaml-Wm";
+            version = "0.1";
             duneVersion = "3";
             src = self.outPath;
 
@@ -61,6 +63,18 @@
           };
         }
       );
+
+      checks = eachSystem (pkgs: {
+        pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+          src = ./.;
+          hooks = {
+            nixfmt-rfc-style.enable = true;
+            ocamlformat.enable = true;
+            end-of-file-fixer.enable = true;
+            trailing-whitespace.enable = true;
+          };
+        };
+      });
 
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
