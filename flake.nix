@@ -69,16 +69,22 @@
           src = ./.;
           hooks = {
             nixfmt-rfc-style.enable = true;
-            ocamlformat.enable = true;
+            ocamlformat = {
+              enable = true;
+              name = "ocamlformat";
+              entry = "${pkgs.ocamlPackages.ocamlformat}/bin/ocamlformat --inplace --enable-outside-detected-project";
+              files = "\\.mli?$";
+              language = "system";
+            };
             end-of-file-fixer.enable = true;
-            trailing-whitespace.enable = true;
+            trim-trailing-whitespace.enable = true;
           };
         };
       });
 
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${pkgs.system}.default ];
+          inputsFrom = [ self.packages.${pkgs.stdenv.hostPlatform.system}.default ];
           packages = (
             with pkgs.ocamlPackages;
             [
