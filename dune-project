@@ -5,22 +5,22 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github SpirytusWeDrinkin/Ocaml-WM))
 
-(authors "Author Name <author@example.com>")
+(authors "Gurvan Biguet-Kerloc'h <>" "Lenny Chiadmi-Delage <>" "Abel Chartier <abel.chartier@gmail.com")
 
 (maintainers "Maintainer Name <maintainer@example.com>")
 
-(license LICENSE)
+(license MIT)
 
-(documentation https://url/to/documentation)
+(documentation https://github.com/SpirytusWeDrinkin/Ocaml-WM)
 
 (package
  (name ocaml-wm)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (synopsis "Wayland compositor in OCaml")
+ (description "This is intended to be a minimal tiling window manager written in OCaml.")
  (depends ocaml)
  (tags
-  ("add topics" "to describe" your project)))
+  (wayland compositor "window-manager" tiling graphics wlroots)))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html

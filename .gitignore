@@ -1,3 +1,4 @@
 # SPDX-License-Identifier: Unlicense
 _build
 .direnv/*
+.pre-commit-config.yaml

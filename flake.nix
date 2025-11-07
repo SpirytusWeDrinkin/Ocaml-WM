@@ -24,7 +24,7 @@
                 # You can set the OCaml version to a particular release. Also, you
                 # may have to pin some packages to a particular revision if the
                 # devshell fail to build. This should be resolved in the upstream.
-                ocamlPackages = super.ocaml-ng.ocamlPackages_latest;
+                ocamlPackages = super.ocaml-ng.ocamlPackages_5_2;
               }
             )
           )
@@ -34,7 +34,7 @@
       packages = eachSystem (
         pkgs: with pkgs; {
           default = ocamlPackages.buildDunePackage {
-            pname = "Ocaml-Wm";
+            pname = "ocaml-wm";
             version = "0.1";
             duneVersion = "3";
             src = self.outPath;
@@ -53,6 +53,9 @@
               base
               core
               core_unix
+
+              # Wayland
+              wayland
 
               # Some common dependencies
               # eio
@@ -103,6 +106,7 @@
           # Enable file watcher.
           # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
           ;
+          inherit (self.checks.${pkgs.stdenv.hostPlatform.system}.pre-commit-check) shellHook;
         };
       });
     };
