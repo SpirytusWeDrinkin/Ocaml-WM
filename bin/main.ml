@@ -1,12 +1,11 @@
 open Version_pkg
-open Version
 
 let prog_name = Filename.basename Sys.argv.(0)
 
 let usage_msg = Printf.sprintf "Usage: %s [options]" prog_name
 
 let options =
-  [("--version", Arg.Set show_version, "Display the program version")]
+  [("--version", Arg.Set Version.show_version, "Display the program version")]
 
 let reject_positional_arg arg =
   Logs.err (fun m ->
@@ -23,4 +22,4 @@ let () =
       Logs.err (fun m -> m "Argument parsing error: %s" msg) ;
       exit 1
   | Arg.Help msg -> Format.printf "%s" msg ; exit 0 ) ;
-  if !show_version then (print_version () ; exit 0)
+  if !Version.show_version then (Version.print_version () ; exit 0)
