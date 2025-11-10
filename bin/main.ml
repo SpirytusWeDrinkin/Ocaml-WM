@@ -1,7 +1,9 @@
 open Version_pkg
 open Version
 
-let usage_msg = "Usage: my_program [options]"
+let prog_name = Filename.basename Sys.argv.(0)
+
+let usage_msg = Printf.sprintf "Usage: %s [options]" prog_name
 
 let options =
   [("--version", Arg.Set show_version, "Display the program version")]
