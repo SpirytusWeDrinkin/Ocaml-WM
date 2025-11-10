@@ -57,6 +57,9 @@
               # Wayland
               wayland
 
+              dune-build-info
+              logs
+
               # Some common dependencies
               # eio
               # eio_main

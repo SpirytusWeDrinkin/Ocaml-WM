@@ -1,1 +1,24 @@
-let () = print_endline "Hello, World!"
+open Version_pkg
+open Version
+
+let usage_msg = "Usage: my_program [options]"
+
+let options =
+  [("--version", Arg.Set show_version, "Display the program version")]
+
+let reject_positional_arg arg =
+  Logs.err (fun m ->
+      m "Error: Unexpected argument `%s`. It only accepts options." arg ) ;
+  prerr_endline "" ;
+  Arg.usage options usage_msg ;
+  exit 1
+
+let () =
+  Logs.set_reporter (Logs_fmt.reporter ()) ;
+  Logs.set_level (Some Logs.Info) ;
+  ( try Arg.parse_argv Sys.argv options reject_positional_arg usage_msg with
+  | Arg.Bad msg ->
+      Logs.err (fun m -> m "Argument parsing error: %s" msg) ;
+      exit 1
+  | Arg.Help msg -> Format.printf "%s" msg ; exit 0 ) ;
+  if !show_version then (print_version () ; exit 0)
