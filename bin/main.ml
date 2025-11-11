@@ -17,7 +17,7 @@ let reject_positional_arg arg =
 let () =
   Logs.set_reporter (Logs_fmt.reporter ()) ;
   Logs.set_level (Some Logs.Info) ;
-  ( try Arg.parse_argv Sys.argv options reject_positional_arg usage_msg with
+  ( try Arg.parse options reject_positional_arg usage_msg with
   | Arg.Bad msg ->
       Logs.err (fun m -> m "Argument parsing error: %s" msg) ;
       exit 1
