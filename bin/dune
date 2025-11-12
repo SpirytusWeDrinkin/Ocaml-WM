@@ -1,4 +1,4 @@
 (executable
  (public_name ocaml-wm)
  (name main)
- (libraries ocaml_wm))
+ (libraries version_pkg logs logs.fmt fmt.tty))

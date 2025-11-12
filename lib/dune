@@ -1,2 +1,4 @@
 (library
- (name ocaml_wm))
+ (name version_pkg)
+ (libraries dune-build-info)
+ (modules version))
